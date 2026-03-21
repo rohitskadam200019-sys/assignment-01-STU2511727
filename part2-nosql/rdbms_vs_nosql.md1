@@ -1,9 +1,0 @@
-## Database Recommendation
-
-For a healthcare patient management system, I recommend **MySQL (RDBMS)** as the primary database. Healthcare data is highly sensitive and requires strict consistency and integrity. MySQL follows the **ACID** (Atomicity, Consistency, Isolation, Durability) model, ensuring that every transaction—such as updating a patient’s medication or allergy list—is processed reliably. In healthcare, a "Partial Update" or "Eventually Consistent" state (common in NoSQL BASE models) could lead to life-threatening medical errors.
-
-According to the **CAP Theorem**, MySQL prioritizes **Consistency and Availability (CA)** over Partition Tolerance in a single-node setup, or Consistency and Partition Tolerance (CP) in a distributed setup. For patient records, having the most "up-to-date" data is more critical than having a system that accepts writes during a network failure but results in desynchronized records. The structured nature of MySQL also allows for complex Joins, which are necessary when linking patients to doctors, appointments, and insurance billing through relational keys.
-
-However, if the startup needs to add a **fraud detection module**, my recommendation would evolve into a **Polyglot Persistence** approach. While the core patient records should stay in MySQL, the fraud detection module would benefit significantly from **MongoDB**. Fraud detection requires analyzing massive streams of semi-structured data (like login patterns, IP addresses, and behavioral metadata) in real-time. 
-
-MongoDB follows the **BASE** (Basically Available, Soft state, Eventual consistency) model, which favors speed and high throughput. It handles horizontal scaling better (Partition Tolerance) via sharding, allowing the system to ingest millions of data points to spot suspicious patterns without slowing down the primary patient database. By using MySQL for "Truth" and MongoDB for "Speed/Analysis," the startup gains the best of both worlds.
